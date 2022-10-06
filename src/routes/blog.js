@@ -1,0 +1,13 @@
+const express = require('express')
+const {body} = require('express-validator')
+
+const router = express.Router()
+
+const blogController = require('../controllers/blog')
+
+// [POST]  : /v1/blog/post
+router.post('/post', [body('title').isLength({min: 5}).withMessage('Title terlalu singkat!'), 
+                      body('body').isLength({min: 5}).withMessage('Isi Post terlalu singkat!')],
+            blogController.createBlogPost)
+
+module.exports = router;
